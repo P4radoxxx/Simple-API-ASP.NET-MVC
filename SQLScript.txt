@@ -1,0 +1,50 @@
+CREATE TABLE Users (
+   UserID INT IDENTITY,
+   Lastname VARCHAR(50) NOT NULL,
+   FirstName VARCHAR(50) NOT NULL,
+   Email VARCHAR(50),
+   Password NVARCHAR(MAX),
+   Token    NVARCHAR(MAX),
+   PRIMARY KEY(UserID),
+   UNIQUE(Email)
+);
+
+CREATE TABLE Project (
+   ProjectID INT IDENTITY,
+   Amount DECIMAL(15,2),
+   Created DATETIME,
+   DateAvailable DATETIME,
+   EndingDate DATETIME,
+   Name VARCHAR(50) NOT NULL,
+   UserID INT NOT NULL,
+   PRIMARY KEY(ProjectID),
+   FOREIGN KEY(UserID) REFERENCES Users(UserID)
+);
+
+CREATE TABLE CounterPart (
+   CounterPartID INT IDENTITY,
+   Amount DECIMAL(15,2),
+   Description VARCHAR(50) NOT NULL,
+   ProjectID INT NOT NULL,
+   PRIMARY KEY(CounterPartID),
+   FOREIGN KEY(ProjectID) REFERENCES Project(ProjectID)
+);
+
+CREATE TABLE Donate (
+   UserID INT,
+   ProjectID INT,
+   DateDonation DATETIME,
+   Amount DECIMAL(15,2),
+   PRIMARY KEY(UserID, ProjectID),
+   FOREIGN KEY(UserID) REFERENCES Users(UserID),
+   FOREIGN KEY(ProjectID) REFERENCES Project(ProjectID)
+);
+
+CREATE TABLE Contribute (
+   UserID INT,
+   CounterPartID INT,
+   DateContribution DATETIME,
+   PRIMARY KEY(UserID, CounterPartID),
+   FOREIGN KEY(UserID) REFERENCES Users(UserID),
+   FOREIGN KEY(CounterPartID) REFERENCES CounterPart(CounterPartID)
+);
