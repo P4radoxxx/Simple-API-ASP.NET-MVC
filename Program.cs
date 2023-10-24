@@ -68,7 +68,7 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "CrowdFundingTFTIC LAB",
-        Version = "v0.1",
+        Version = "v0.2",
         Description = "Much API, very learn,  wow",
 
         Contact = new OpenApiContact

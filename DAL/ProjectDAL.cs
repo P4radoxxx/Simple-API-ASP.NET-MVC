@@ -47,11 +47,17 @@ namespace WebAPITest.DAL
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
+                
+                // Project expire 6 months after creation
+                project.Created = DateTime.Now;
+                project.EndingDate = project.Created.AddMonths(6);
+
                 string sql = "INSERT INTO Project (Name, Amount, Created, DateAvailable, EndingDate, UserID) " +
                              "VALUES (@Name, @Amount, @Created, @DateAvailable, @EndingDate, @UserID)";
                 connection.Execute(sql, project);
             }
         }
+
 
 
 
